@@ -2,3 +2,15 @@ baseURL = 'https://www.systools.it/'
 languageCode = 'it'
 title = 'My ToolBox'
 theme = 'PaperMod'
+
+[menu]
+
+  [[menu.main]]
+    name = 'Blog'
+    url = '/posts/'
+    weight = 1
+
+  [[menu.main]]
+    name = 'About'
+    url = '/about/'
+    weight = 2

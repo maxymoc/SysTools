@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>My ToolBox</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on My ToolBox</description>
+    <generator>Hugo</generator>
+    <language>it</language>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h1 id=&#34;-page-under-construction-&#34;&gt;&amp;mdash; Page under construction &amp;mdash;&lt;/h1&gt;
+&lt;h1 id=&#34;-anteprima--preview-&#34;&gt;&amp;mdash; Anteprima &amp;mdash; Preview &amp;mdash;&lt;/h1&gt;
+&lt;h1 id=&#34;enterprise-architect--hybrid-modern-workplace--private-cloud&#34;&gt;Enterprise Architect | Hybrid Modern Workplace &amp;amp; Private Cloud&lt;/h1&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Professionista con oltre 20 anni di esperienza nel design e nell’evoluzione di infrastrutture IT complesse, con un focus su architetture ibride, modern workplace e ambienti enterprise resilienti.&lt;br&gt;
+Opera a cavallo tra tecnologia e strategia, supportando organizzazioni pubbliche e private nella trasformazione digitale, mantenendo sempre equilibrio tra innovazione, sostenibilità operativa e controllo dei rischi.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
