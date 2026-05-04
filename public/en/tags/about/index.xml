@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>About on systools.it</title>
+    <link>http://localhost:1313/en/tags/about/</link>
+    <description>Recent content in About on systools.it</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 04 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/en/tags/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome to systools.it</title>
+      <link>http://localhost:1313/en/posts/benvenuto/</link>
+      <pubDate>Mon, 04 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/posts/benvenuto/</guid>
+      <description>Who I am, why this blog and what I&amp;#39;ll write about — from an Enterprise Architect&amp;#39;s perspective.</description>
+    </item>
+  </channel>
+</rss>

@@ -6,7 +6,22 @@
     <description>Recent content on systools.it</description>
     <generator>Hugo</generator>
     <language>en</language>
+    <lastBuildDate>Mon, 04 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World</title>
+      <link>http://localhost:1313/en/posts/hello-world/</link>
+      <pubDate>Mon, 04 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/posts/hello-world/</guid>
+      <description>I never felt the need to talk about myself. Until the day I did.</description>
+    </item>
+    <item>
+      <title>Welcome to systools.it</title>
+      <link>http://localhost:1313/en/posts/benvenuto/</link>
+      <pubDate>Mon, 04 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/posts/benvenuto/</guid>
+      <description>Who I am, why this blog and what I&amp;#39;ll write about — from an Enterprise Architect&amp;#39;s perspective.</description>
+    </item>
     <item>
       <title>About</title>
       <link>http://localhost:1313/en/about/</link>
