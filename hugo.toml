@@ -1,16 +1,87 @@
 baseURL = 'https://www.systools.it/'
-languageCode = 'it'
-title = 'My ToolBox'
+defaultContentLanguage = 'it'
+defaultContentLanguageInSubdir = false
 theme = 'PaperMod'
 
-[menu]
-
-  [[menu.main]]
-    name = 'Blog'
-    url = '/posts/'
+[languages]
+  [languages.it]
+    languageName = 'Italiano'
     weight = 1
+    title = 'systools.it'
+    [languages.it.params]
+      description = 'Note di architettura IT'
+      [languages.it.params.profileMode]
+        enabled = true
+        title = 'Massimo Ciancio'
+        subtitle = 'uptime over hype'
+        imageUrl = 'img/_systools_logo_.png'
+        imageAltText = 'systools'
+        imageWidth = 600
+        imageHeight = 600
+        [[languages.it.params.profileMode.buttons]]
+          name = 'Blog'
+          url = '/posts/'
+        [[languages.it.params.profileMode.buttons]]
+          name = 'About'
+          url = '/about/'
+    [languages.it.menus]
+      [[languages.it.menus.main]]
+        name = 'Blog'
+        url = '/posts/'
+        weight = 1
+      [[languages.it.menus.main]]
+        name = 'About'
+        url = '/about/'
+        weight = 2
 
-  [[menu.main]]
-    name = 'About'
-    url = '/about/'
+  [languages.en]
+    languageName = 'English'
     weight = 2
+    title = 'systools.it'
+    [languages.en.params]
+      description = 'IT architecture notes'
+      [languages.en.params.profileMode]
+        enabled = true
+        title = 'Massimo Ciancio'
+        subtitle = 'uptime over hype'
+        imageUrl = 'img/_systools_logo_.png'
+        imageAltText = 'systools'
+        imageWidth = 600
+        imageHeight = 600
+        [[languages.en.params.profileMode.buttons]]
+          name = 'Blog'
+          url = '/en/posts/'
+        [[languages.en.params.profileMode.buttons]]
+          name = 'About'
+          url = '/en/about/'
+    [languages.en.menus]
+      [[languages.en.menus.main]]
+        name = 'Blog'
+        url = '/en/posts/'
+        weight = 1
+      [[languages.en.menus.main]]
+        name = 'About'
+        url = '/en/about/'
+        weight = 2
+
+[params]
+  author = 'Massimo C.'
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  defaultTheme = 'auto'
+
+[[params.socialIcons]]
+  name = 'linkedin'
+  url = 'https://www.linkedin.com/in/massimo-ciancio-025514a0'
+
+[[params.socialIcons]]
+  name = 'github'
+  url = 'https://github.com/maxymoc'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
