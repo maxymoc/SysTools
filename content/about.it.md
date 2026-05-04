@@ -96,6 +96,6 @@ Il ruolo si colloca nel dominio dell'**Enterprise Architecture**, con responsabi
 
 ## Dove trovarmi
 
-- 💼 [LinkedIn](https://linkedin.com/in/TUOPROFILO)
+- 💼 [LinkedIn](https://www.linkedin.com/in/massimo-ciancio-025514a0)
 - 🐙 [GitHub](https://github.com/maxymoc)
 - 🏅 [Certificazioni su Credly](https://www.credly.com/users/massimo-ciancio.f194c837/badges#credly)
