@@ -81,6 +81,11 @@ theme = 'PaperMod'
   name = 'github'
   url = 'https://github.com/maxymoc'
 
+[params.cover]
+    hidden = false
+    hiddenInList = false
+    hiddenInSingle = false
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
