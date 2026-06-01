@@ -1,7 +1,7 @@
 ---
 title: "VMUG IT Community Day – Verona, 27 maggio"
 date: 2026-05-29
-draft: TRUE
+draft: false
 translationKey: "vmug-welcome"
 tags: ["Community", "VMUGIT", "about"]
 description: "My thoughts on this year's VMUGIT"
