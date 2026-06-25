@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="it" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico | systools.it</title>
+<meta name="keywords" content="PKI, AD CS, AutoEnrollment, Windows, CryptoAPI, EAP-TLS, 802.1X, Security, Troubleshooting, Enterprise Architecture">
+<meta name="description" content="Un client Windows 11 in dominio non completava il rinnovo del certificato macchina per EAP-TLS. La CA funzionava. Il template era corretto. Il blocco era locale, silenzioso e causato da un middleware crittografico che intercettava CryptoAPI prima che certreq potesse completare la richiesta.">
+<meta name="author" content="Massimo C.">
+<link rel="canonical" href="http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="it" href="http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/en/posts/ad-cs-autoenrollment-bit4id/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="systools.it (Alt + H)">systools.it</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button><span class="nav-sep">|</span>
+                    <ul class="lang-menu">
+                        <li>
+                            <a href="http://localhost:1313/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-description">
+      Un client Windows 11 in dominio non completava il rinnovo del certificato macchina per EAP-TLS. La CA funzionava. Il template era corretto. Il blocco era locale, silenzioso e causato da un middleware crittografico che intercettava CryptoAPI prima che certreq potesse completare la richiesta.
+    </div>
+    <div class="post-meta">
+
+<span title='2026-06-25 14:00:00 +0200 CEST'>25 giugno 2026</span>&nbsp;·&nbsp;<span>7 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span>&nbsp;|&nbsp;<span>Traduzioni:</span>
+    <ul class="i18n_list">
+        <li>
+            <a href="http://localhost:1313/en/posts/ad-cs-autoenrollment-bit4id/">En</a>
+        </li>
+    </ul>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:1313/img/ad-cs-autoenrollment-bit4id.png" alt="ad-cs-autoenrollment-bit4id">
+        
+</figure>
+  <div class="post-content md-content"><h2 id="il-contesto">Il contesto<a hidden class="anchor" aria-hidden="true" href="#il-contesto">#</a></h2>
+<p>Un client Windows 11, aggiornato e in dominio, non riusciva a completare il rinnovo di un certificato macchina per l&rsquo;autenticazione EAP-TLS su rete 802.1X. Il certificato era emesso su template AD CS dedicato, con provider Microsoft RSA SChannel, EKU Client Authentication, store target <code>LocalMachine\My</code>.</p>
+<p>La CA emetteva senza problemi. Il template era configurato correttamente. I permessi di enroll/autoenroll per i computer erano presenti. Ma il client non aveva il certificato.</p>
+<p>Questo è il tipo di problema che in un ambiente enterprise con centinaia o migliaia di client può essere lungo da isolare, soprattutto quando la pressione operativa porta a intervenire in modo aggressivo prima di aver capito dove sta il blocco.</p>
+<h2 id="il-problema">Il problema<a hidden class="anchor" aria-hidden="true" href="#il-problema">#</a></h2>
+<p>Il sintomo era apparentemente semplice: <code>certreq -enroll -machine -q &quot;Machine_AutoEnroll&quot;</code> non completava. Nessun output utile, nessun errore esplicito, nessun certificato nello store.</p>
+<p>Prima di guardare il client, sono stati verificati tutti i componenti a monte: raggiungibilità della CA, FQDN corretto, pubblicazione del template, permessi di enroll/autoenroll, EKU, SAN, renewal period, chain, revocation, store <code>LocalMachine\My</code> e <code>Request</code>, accessibilità del provider Microsoft RSA SChannel, servizi crittografici, esecuzione nel contesto <code>NT AUTHORITY\SYSTEM</code>. Niente da segnalare su nessuno di questi punti.</p>
+<p>Il blocco quindi era locale. Per isolarlo, è stato usato un approccio più granulare: <code>certreq -new</code> con un INF minimale, esplicitando il provider, catturando stdout, stderr e il process tree tramite un wrapper con timeout configurato a 120 secondi.</p>
+<p>Il file INF era deliberatamente essenziale:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[Version]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Signature</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$Windows NT$&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[NewRequest]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Subject</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CN=CLIENT-01&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">MachineKeySet</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">TRUE</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">KeyLength</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">2048</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Exportable</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">FALSE</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">KeySpec</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">KeyUsage</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">0xa0</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ProviderName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Microsoft RSA SChannel Cryptographic Provider&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ProviderType</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">12</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RequestType</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">PKCS10</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Silent</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">TRUE</span>
+</span></span></code></pre></div><p>Nessun template nell&rsquo;INF: il template doveva essere passato solo in fase di submit, per non coinvolgere il path template-driven durante la generazione locale. Il provider era dichiarato esplicitamente. Il test era ridotto al minimo necessario.</p>
+<p>Risultato al termine dei 120 secondi: timeout. Stdout vuoto, stderr vuoto, nessun file <code>.req</code> creato, nessuna pending request nello store <code>Request</code>.</p>
+<h2 id="levidenza-che-ha-cambiato-la-direzione">L&rsquo;evidenza che ha cambiato la direzione<a hidden class="anchor" aria-hidden="true" href="#levidenza-che-ha-cambiato-la-direzione">#</a></h2>
+<p>Il processo <code>certreq.exe</code> al momento del timeout mostrava questo process tree:</p>
+<pre tabindex="0"><code>cmd.exe (wrapper)
+└── certreq.exe
+    └── kchain.exe [C:\Program Files (x86)\Bit4id\UKC\UKC\bin\kchain.exe]
+        └── kchain_gui.exe [C:\Program Files (x86)\Bit4id\UKC\UKC\bin\kchain_gui.exe]
+</code></pre><p><code>certreq.exe</code> stava aspettando <code>kchain.exe</code>, che aveva avviato <code>kchain_gui.exe</code>. Durante il test era comparso anche un popup dell&rsquo;UKC di Bit4id. Il kill tree al termine del timeout confermava la catena: <code>kchain_gui.exe</code> figlio di <code>kchain.exe</code>, <code>kchain.exe</code> figlio di <code>certreq.exe</code>.</p>
+<p>La CSP list pre-rimozione mostrava due provider Bit4id registrati nel sistema CryptoAPI locale, entrambi di tipo <code>PROV_RSA_FULL</code>, lo stesso tipo del provider Microsoft richiesto dall&rsquo;INF:</p>
+<pre tabindex="0"><code>Bit4id UKC Service Provider          - PROV_RSA_FULL
+Bit4id Universal Middleware Provider - PROV_RSA_FULL
+</code></pre><p>In parallelo erano registrati anche un Bit4id Key Storage Provider sul layer CNG e la libreria <code>bit4p11.dll</code> come PKCS#11 provider.</p>
+<p>Il software installato era composto da tre componenti:</p>
+<ul>
+<li>Bit4id Universal MW 1.4.10.645</li>
+<li>Bit4id UKC 1.17.7.5</li>
+<li>Bit4id Firma4ng-InfoCamere 1.6.14</li>
+</ul>
+<p>A questo punto l&rsquo;analisi con <strong>Process Monitor</strong> ha mostrato che <code>certreq.exe</code> tentava di scrivere in un path <code>C:\4log</code> che non esisteva sul sistema. Ho creato il path per raccogliere evidenza ulteriore: una volta presente, <code>bit4p11.dll</code> ha iniziato a scrivere log binari. Il file creato durante il test era <code>bit4p11.dll.06_25-09_50_19.pid00002434.log.bin</code>, generato alle 11:50:19, esattamente nel secondo in cui <code>certreq.exe</code> era partito (StartTime=2026-06-25T11:50:17). La correlazione temporale confermava che <code>bit4p11.dll</code> era attiva durante l&rsquo;operazione.</p>
+<p>La diagnosi era chiara: il middleware Bit4id stava intercettando il path CryptoAPI prima che <code>certreq.exe</code> potesse completare la generazione della richiesta, bloccandosi in attesa di un token o di interazione utente tramite <code>kchain_gui.exe</code>, in un contesto (<code>NT AUTHORITY\SYSTEM</code>, modalità silente) in cui quella interazione non poteva avvenire.</p>
+<h2 id="la-decisione">La decisione<a hidden class="anchor" aria-hidden="true" href="#la-decisione">#</a></h2>
+<p>Con change autorizzata, rimozione ufficiale dei tre componenti Bit4id/UKC, seguita da riavvio controllato. Nient&rsquo;altro: nessun reset TPM, nessun rejoin, nessuna cancellazione manuale di MachineKeys o provider dal registro.</p>
+<p>Dopo il riavvio, la CSP list mostrava solo i provider Microsoft nativi. Nessun processo o servizio Bit4id attivo. Le chiavi di registro Bit4id UKC e Universal Middleware risultavano rimosse; rimanevano alcune chiavi residue sotto <code>HKLM\SOFTWARE\bit4id</code> relative ai log e ai componenti PKI manager, senza impatto funzionale.</p>
+<h2 id="il-risultato">Il risultato<a hidden class="anchor" aria-hidden="true" href="#il-risultato">#</a></h2>
+<p>Senza nessun intervento aggiuntivo, l&rsquo;AutoEnrollment al primo ciclo successivo al riavvio ha acquisito automaticamente il certificato macchina. Gli eventi del log <code>CertificateServicesClient</code> erano precisi:</p>
+<ul>
+<li><strong>12:05:39</strong> - Autenticazione al policy server LDAP completata</li>
+<li><strong>12:05:39</strong> - Caricamento criteri dal server di enrollment completato</li>
+<li><strong>12:05:40</strong> - Autenticazione alla CA <code>CASERVER.ACME.LOCAL\CA</code> completata</li>
+<li><strong>12:05:40</strong> - Ricevuto certificato Machine_AutoEnroll con Request ID 124077 dalla CA</li>
+<li><strong>12:05:41</strong> - AutoEnrollment per Sistema locale completato</li>
+</ul>
+<p>Il certificato presente nello store <code>LocalMachine\My</code> al termine:</p>
+<pre tabindex="0"><code>Template:    Machine_AutoEnroll
+Issuer:      CN=CA, DC=ACME, LOCAL
+NotBefore:   25/06/2026 11:55
+NotAfter:    25/06/2027 11:55
+Thumbprint:  A7F3C91E4B8D2065F0C9A13B7E42D58C6A90F1D3
+Provider:    Microsoft RSA SChannel Cryptographic Provider
+PrivateKey:  Non esportabile, associata, test crittografico superato
+</code></pre><p>Store <code>Request</code> vuoto. Nessuna richiesta pendente residua.</p>
+<h2 id="cosa-non-fare-in-questi-casi">Cosa non fare in questi casi<a hidden class="anchor" aria-hidden="true" href="#cosa-non-fare-in-questi-casi">#</a></h2>
+<p>La pressione a risolvere rapidamente un client che non si autentica in rete tende a far saltare la fase di analisi. Le azioni che vengono applicate per prime, spesso senza evidenza che servano, sono rejoin al dominio, reset del TPM, cancellazione manuale del MachineKeys.</p>
+<p>Il rejoin è un&rsquo;operazione con impatto reale: reset del secure channel, possibile rigenerazione di tutti i certificati macchina, effetti su configurazioni locali. In ambienti con BitLocker e TPM-bound keys il reset del TPM richiede una finestra di manutenzione dedicata.</p>
+<p>Il principio è invertito rispetto all&rsquo;istinto: prima si esclude tutto ciò che sta fuori dal client (CA, template, permessi, rete, chain), poi si isola il problema localmente con strumenti non mutativi, e solo alla fine si interviene con la modifica minima necessaria. In questo caso, quella modifica minima era la rimozione di tre package software.</p>
+<h2 id="trade-off-e-rischi-della-rimozione">Trade-off e rischi della rimozione<a hidden class="anchor" aria-hidden="true" href="#trade-off-e-rischi-della-rimozione">#</a></h2>
+<p>Rimuovere Bit4id da un client aziendale non è neutro. In molti ambienti il middleware serve per l&rsquo;accesso a smart card, CNS, token per firma digitale o accesso a servizi PA. La rimozione deve essere coordinata con chi gestisce queste esigenze, e in certi casi la soluzione non è rimuovere ma trovare una versione del middleware compatibile, oppure riconfigurarlo per non interferire con il path CryptoAPI nativo.</p>
+<p>Nel caso specifico, la rimozione è stata la soluzione appropriata perché il middleware non era necessario per le funzioni primarie del client in quel contesto. La valutazione va fatta caso per caso.</p>
+<h2 id="implicazioni-architetturali">Implicazioni architetturali<a hidden class="anchor" aria-hidden="true" href="#implicazioni-architetturali">#</a></h2>
+<p>Questo caso mette in luce un aspetto che raramente viene considerato nel design di ambienti enterprise con AD CS e AutoEnrollment: la coesistenza con middleware crittografici terzi non è trasparente.</p>
+<p>I middleware per token e smart card registrano provider a livello di sistema, a volte sia su CryptoAPI (CAPI) che su CNG. Questo ha effetti globali: non solo sulle operazioni PKI esplicite, ma su qualsiasi path che attraversa il layer crittografico, incluso l&rsquo;AutoEnrollment, TLS, Kerberos PKINIT. Quando un middleware si registra come <code>PROV_RSA_FULL</code>, può essere invocato da qualsiasi operazione crittografica di quel tipo, indipendentemente da quanto esplicito sia il provider dichiarato nell&rsquo;INF o nella richiesta.</p>
+<p>Le domande che un architetto dovrebbe porre prima del rollout, e che andrebbero incluse in un assessment:</p>
+<ul>
+<li>Quali middleware crittografici terzi sono presenti nella flotta? Sono standardizzati su una versione definita?</li>
+<li>È stato testato il comportamento di AutoEnrollment in loro presenza, nel contesto <code>NT AUTHORITY\SYSTEM</code> e in modalità silente?</li>
+<li>Le GPO di AutoEnrollment sono monitorate su eventi di fallimento, o il problema emerge solo quando un utente non riesce ad autenticarsi?</li>
+<li>Esiste un processo di change coordinato tra chi gestisce PKI e chi gestisce i client?</li>
+</ul>
+<p>Il monitoraggio degli eventi <code>CertificateServicesClient</code> con alert sui failure di enrollment è una misura semplice che nella maggior parte degli ambienti non è attiva. Implementarla costa poco e riduce significativamente il tempo di rilevazione di questi problemi.</p>
+<h2 id="lesson-learned">Lesson learned<a hidden class="anchor" aria-hidden="true" href="#lesson-learned">#</a></h2>
+<p>Il problema non era nella PKI. Non era nel template. Non era nella rete. Era in un software installato sul client che intercettava silenziosamente un meccanismo di sistema, in un contesto in cui non poteva completare la propria operazione.</p>
+<p>La lezione non riguarda Bit4id specificamente: le evidenze raccolte riguardano una combinazione specifica di versioni, configurazione locale e sistema operativo, senza test comparativi su versioni alternative. Non è un advisory contro il prodotto.</p>
+<p>La lezione è che i middleware crittografici terzi hanno visibilità e scope molto più ampi di quanto chi li installa generalmente considera, e che in un&rsquo;architettura PKI enterprise questo non va dato per scontato ma mappato, testato e monitorato.</p>
+<hr>
+<p><em>Ambiente: Windows 11 25H2 (patch aggiornate al 25/06/2026). CA enterprise AD CS. Template Machine_AutoEnroll per EAP-TLS/802.1X.</em>
+<em>Componenti Bit4id identificati: Universal MW 1.4.10.645, UKC 1.17.7.5, Firma4ng-InfoCamere 1.6.14.</em>
+<em>Il caso è anonimizzato con valori generici. Non sono stati eseguiti test comparativi con versioni alternative del middleware.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/pki/">PKI</a></li>
+      <li><a href="http://localhost:1313/tags/ad-cs/">AD CS</a></li>
+      <li><a href="http://localhost:1313/tags/autoenrollment/">AutoEnrollment</a></li>
+      <li><a href="http://localhost:1313/tags/windows/">Windows</a></li>
+      <li><a href="http://localhost:1313/tags/cryptoapi/">CryptoAPI</a></li>
+      <li><a href="http://localhost:1313/tags/eap-tls/">EAP-TLS</a></li>
+      <li><a href="http://localhost:1313/tags/802.1x/">802.1X</a></li>
+      <li><a href="http://localhost:1313/tags/security/">Security</a></li>
+      <li><a href="http://localhost:1313/tags/troubleshooting/">Troubleshooting</a></li>
+      <li><a href="http://localhost:1313/tags/enterprise-architecture/">Enterprise Architecture</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/vmugit-2026/">
+    <span class="title">Successivo »</span>
+    <span>VMUG IT Community Day – Verona, 27 maggio</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on x"
+            href="https://x.com/intent/tweet/?text=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f&amp;hashtags=PKI%2cADCS%2cAutoEnrollment%2cWindows%2cCryptoAPI%2cEAP-TLS%2c802.1X%2cSecurity%2cTroubleshooting%2cEnterpriseArchitecture">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f&amp;title=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico&amp;summary=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f&title=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on whatsapp"
+            href="https://api.whatsapp.com/send?text=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on telegram"
+            href="https://telegram.me/share/url?text=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=AD%20CS%20AutoEnrollment%20e%20CryptoAPI%3a%20caso%20reale%20di%20blocco%20causato%20da%20middleware%20crittografico&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fad-cs-autoenrollment-bit4id%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">systools.it</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copia';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copiato!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copia';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

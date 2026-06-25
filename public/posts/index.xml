@@ -6,8 +6,15 @@
     <description>Recent content in Posts on systools.it</description>
     <generator>Hugo</generator>
     <language>it</language>
-    <lastBuildDate>Fri, 29 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 14:00:00 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico</title>
+      <link>http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/</guid>
+      <description>Un client Windows 11 in dominio non completava il rinnovo del certificato macchina per EAP-TLS. La CA funzionava. Il template era corretto. Il blocco era locale, silenzioso e causato da un middleware crittografico che intercettava CryptoAPI prima che certreq potesse completare la richiesta.</description>
+    </item>
     <item>
       <title>VMUG IT Community Day – Verona, 27 maggio</title>
       <link>http://localhost:1313/posts/vmugit-2026/</link>

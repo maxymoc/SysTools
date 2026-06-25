@@ -6,8 +6,78 @@
     <description>Recent content in Tags on systools.it</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 29 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 14:00:00 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>802.1X</title>
+      <link>http://localhost:1313/en/tags/802.1x/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/802.1x/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AD CS</title>
+      <link>http://localhost:1313/en/tags/ad-cs/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/ad-cs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AutoEnrollment</title>
+      <link>http://localhost:1313/en/tags/autoenrollment/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/autoenrollment/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CryptoAPI</title>
+      <link>http://localhost:1313/en/tags/cryptoapi/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/cryptoapi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EAP-TLS</title>
+      <link>http://localhost:1313/en/tags/eap-tls/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/eap-tls/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Enterprise Architecture</title>
+      <link>http://localhost:1313/en/tags/enterprise-architecture/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/enterprise-architecture/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PKI</title>
+      <link>http://localhost:1313/en/tags/pki/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/pki/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>http://localhost:1313/en/tags/security/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Troubleshooting</title>
+      <link>http://localhost:1313/en/tags/troubleshooting/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/troubleshooting/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows</title>
+      <link>http://localhost:1313/en/tags/windows/</link>
+      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/windows/</guid>
+      <description></description>
+    </item>
     <item>
       <title>About</title>
       <link>http://localhost:1313/en/tags/about/</link>

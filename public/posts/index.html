@@ -10,7 +10,7 @@
 <meta name="description" content="Posts - systools.it">
 <meta name="author" content="Massimo C.">
 <link rel="canonical" href="http://localhost:1313/posts/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0f8ff9cc31f85d7ce66addba088b670a61bbe2a40b63636e72e1ef5bf9cbd34d.css" integrity="sha256-D4/5zDH4XXzmat26CItnCmG74qQLY2NucuHvW/nL000=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -75,12 +75,12 @@
             <a href="http://localhost:1313/" accesskey="h" title="systools.it (Alt + H)">systools.it</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -93,7 +93,7 @@
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                </button><span>|</span>
+                </button><span class="nav-sep">|</span>
                     <ul class="lang-menu">
                         <li>
                             <a href="http://localhost:1313/en/" title="English"
@@ -118,7 +118,12 @@
 </header>
 <main class="main"> 
 <header class="page-header"><nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
-    <a href='http://localhost:1313/'>Home</a></nav>
+            <a href="/">Home</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
   <h1>
     Posts
   </h1>
@@ -126,10 +131,10 @@
 
 <article class="post-entry"> 
 <figure class="entry-cover">
-        <img loading="lazy" src="http://localhost:1313/img/vmug-stickers_wide_sm.jpeg" alt="vmug-stickers">
+        <img loading="lazy" src="http://localhost:1313/img/ad-cs-autoenrollment-bit4id.png" alt="ad-cs-autoenrollment-bit4id">
 </figure>
   <header class="entry-header">
-    <h2 class="entry-hint-parent">VMUG IT Community Day – Verona, 27 maggio
+    <h2 class="entry-hint-parent">AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
           <path
@@ -139,13 +144,34 @@
     </h2>
   </header>
   <div class="entry-content">
+    <p>Il contesto Un client Windows 11, aggiornato e in dominio, non riusciva a completare il rinnovo di un certificato macchina per l’autenticazione EAP-TLS su rete 802.1X. Il certificato era emesso su template AD CS dedicato, con provider Microsoft RSA SChannel, EKU Client Authentication, store target LocalMachine\My.
+La CA emetteva senza problemi. Il template era configurato correttamente. I permessi di enroll/autoenroll per i computer erano presenti. Ma il client non aveva il certificato.
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-06-25 14:00:00 +0200 CEST'>25 giugno 2026</span>&nbsp;·&nbsp;<span>7 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
+  <a class="entry-link" aria-label="post link to AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico" href="http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/img/vmug-stickers_wide_sm.jpeg" alt="vmug-stickers">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">VMUG IT Community Day – Verona, 27 maggio
+    </h2>
+  </header>
+  <div class="entry-content">
     <p>VMUG IT Community Day – Verona, 27 maggio Ho aspettato qualche giorno prima di scrivere queste righe, perché avevo una consegna importante da chiudere e come spesso accade nel nostro lavoro, le priorità operative vengono prima.
 Ora però mi fa piacere fermarmi un momento, condividere qualche riflessione e fare i dovuti ringraziamenti.
 Verrebbe quasi da dire: “Il solito racconto del solito evento?” Direi di no.
 Quando il livello tecnico è alto e la community è fatta da professionisti che questi temi li affrontano ogni giorno sul campo, l’evento smette di essere solo una giornata di sessioni e diventa un confronto vero. 💻 Incontrare di persona professionisti che normalmente segui, leggi o incroci online ha per me un valore enorme. Niente filtri: si parla di casi reali, problemi veri, scelte tecniche e percorsi professionali. In una parola:
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-05-29 00:00:00 +0000 UTC'>29 maggio 2026</span>&nbsp;·&nbsp;<span>3 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
+  <footer class="entry-footer">
+
+<span title='2026-05-29 00:00:00 +0000 UTC'>29 maggio 2026</span>&nbsp;·&nbsp;<span>3 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
   <a class="entry-link" aria-label="post link to VMUG IT Community Day – Verona, 27 maggio" href="http://localhost:1313/posts/vmugit-2026/"></a>
 </article>
 
@@ -167,7 +193,9 @@ Questo blog nasce da una convinzione: le scelte architetturali meritano di esser
 Di cosa scriverò Non troverai tutorial su come installare un servizio o configurare un tool. Troverai ragionamenti tecnici su problemi reali:
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-05-04 00:00:00 +0000 UTC'>4 maggio 2026</span>&nbsp;·&nbsp;<span>2 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
+  <footer class="entry-footer">
+
+<span title='2026-05-04 00:00:00 +0000 UTC'>4 maggio 2026</span>&nbsp;·&nbsp;<span>2 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
   <a class="entry-link" aria-label="post link to Benvenuto su systools.it" href="http://localhost:1313/posts/benvenuto/"></a>
 </article>
 
@@ -183,7 +211,9 @@ Poi è arrivata la pandemia. Poi la geopolitica. Poi quegli anni strani e intens
 A un certo punto ti guardi intorno e capisci che qualcosa è cambiato. Non fuori, ma dentro. Il modo di vedere le cose. Le priorità. Quello che vale la pena fare e quello che non vale più.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2026-05-04 00:00:00 +0000 UTC'>4 maggio 2026</span>&nbsp;·&nbsp;<span>1 minuto</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
+  <footer class="entry-footer">
+
+<span title='2026-05-04 00:00:00 +0000 UTC'>4 maggio 2026</span>&nbsp;·&nbsp;<span>1 minuto</span>&nbsp;·&nbsp;<span>Massimo C.</span></footer>
   <a class="entry-link" aria-label="post link to Hello World" href="http://localhost:1313/posts/hello-world/"></a>
 </article>
     </main>
@@ -191,9 +221,11 @@ A un certo punto ti guardi intorno e capisci che qualcosa è cambiato. Non fuori
 <footer class="footer">
         <span>&copy; 2026 <a href="http://localhost:1313/">systools.it</a></span> · 
 
+    
+    
     <span>
         Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
 </footer>
