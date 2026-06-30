@@ -165,3 +165,7 @@ La lezione è che i middleware crittografici terzi hanno visibilità e scope mol
 *Ambiente: Windows 11 25H2 (patch aggiornate al 25/06/2026). CA enterprise AD CS. Template Machine_AutoEnroll per EAP-TLS/802.1X.*
 *Componenti Bit4id identificati: Universal MW 1.4.10.645, UKC 1.17.7.5, Firma4ng-InfoCamere 1.6.14.*
 *Il caso è anonimizzato con valori generici. Non sono stati eseguiti test comparativi con versioni alternative del middleware.*
+
+---
+
+**Aggiornamento del 30 giugno 2026:** a valle di ulteriore analisi, è confermato che l'aggiornamento del middleware Bit4id risolve la problematica descritta. Per chi avesse in produzione questo middleware, consigliamo di pianificarne l'aggiornamento.

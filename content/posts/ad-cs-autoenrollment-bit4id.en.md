@@ -165,3 +165,7 @@ The lesson is that third-party cryptographic middleware has far broader visibili
 *Environment: Windows 11 25H2 (patches current as of 25/06/2026). Enterprise AD CS CA. Template Machine_AutoEnroll for EAP-TLS/802.1X.*
 *Bit4id components identified: Universal MW 1.4.10.645, UKC 1.17.7.5, Firma4ng-InfoCamere 1.6.14.*
 *The case has been anonymized with generic values. No comparative testing was performed with alternative versions of the middleware.*
+
+---
+
+**Update, June 30, 2026:** further analysis has confirmed that updating the Bit4id middleware resolves the issue described above. Anyone running this middleware in production should plan to update it.
