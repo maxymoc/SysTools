@@ -6,8 +6,64 @@
     <description>Recent content in Tags on systools.it</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 Jun 2026 14:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 17:40:00 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Capacity Planning</title>
+      <link>http://localhost:1313/en/tags/capacity-planning/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/capacity-planning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Enterprise Architecture</title>
+      <link>http://localhost:1313/en/tags/enterprise-architecture/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/enterprise-architecture/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>FinOps</title>
+      <link>http://localhost:1313/en/tags/finops/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/finops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hybrid Cloud</title>
+      <link>http://localhost:1313/en/tags/hybrid-cloud/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/hybrid-cloud/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure</title>
+      <link>http://localhost:1313/en/tags/infrastructure/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/infrastructure/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Private Cloud</title>
+      <link>http://localhost:1313/en/tags/private-cloud/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/private-cloud/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VMware Cloud Foundation</title>
+      <link>http://localhost:1313/en/tags/vmware-cloud-foundation/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/vmware-cloud-foundation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VSAN</title>
+      <link>http://localhost:1313/en/tags/vsan/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/tags/vsan/</guid>
+      <description></description>
+    </item>
     <item>
       <title>802.1X</title>
       <link>http://localhost:1313/en/tags/802.1x/</link>
@@ -41,13 +97,6 @@
       <link>http://localhost:1313/en/tags/eap-tls/</link>
       <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
       <guid>http://localhost:1313/en/tags/eap-tls/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Enterprise Architecture</title>
-      <link>http://localhost:1313/en/tags/enterprise-architecture/</link>
-      <pubDate>Thu, 25 Jun 2026 14:00:00 +0200</pubDate>
-      <guid>http://localhost:1313/en/tags/enterprise-architecture/</guid>
       <description></description>
     </item>
     <item>

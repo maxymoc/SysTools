@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="it" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware | systools.it</title>
+<meta name="keywords" content="VMware Cloud Foundation, Private Cloud, Hybrid Cloud, Capacity Planning, vSAN, FinOps, Infrastructure, Enterprise Architecture">
+<meta name="description" content="Un cluster VMware al 65% di utilizzo non è necessariamente vicino alla saturazione. Come distinguere la capacità installata da quella utilizzabile prima di acquistare nuovo hardware, con VMware Cloud Foundation 9.1.">
+<meta name="author" content="Massimo C.">
+<link rel="canonical" href="http://localhost:1313/posts/capacita-nascosta-vcf-9-1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="it" href="http://localhost:1313/posts/capacita-nascosta-vcf-9-1/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/en/posts/hidden-capacity-vcf-9-1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="systools.it (Alt + H)">systools.it</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button><span class="nav-sep">|</span>
+                    <ul class="lang-menu">
+                        <li>
+                            <a href="http://localhost:1313/en/" title="English"
+                                aria-label="English">En</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <a href="/posts/">Posts</a>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+        <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+</nav>
+    <h1 class="post-title entry-hint-parent">
+      La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-description">
+      Un cluster VMware al 65% di utilizzo non è necessariamente vicino alla saturazione. Come distinguere la capacità installata da quella utilizzabile prima di acquistare nuovo hardware, con VMware Cloud Foundation 9.1.
+    </div>
+    <div class="post-meta">
+
+<span title='2026-08-04 17:40:00 +0200 CEST'>4 agosto 2026</span>&nbsp;·&nbsp;<span>11 minuti</span>&nbsp;·&nbsp;<span>Massimo C.</span>&nbsp;|&nbsp;<span>Traduzioni:</span>
+    <ul class="i18n_list">
+        <li>
+            <a href="http://localhost:1313/en/posts/hidden-capacity-vcf-9-1/">En</a>
+        </li>
+    </ul>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:1313/img/capacita-nascosta-vcf-9-1.png" alt="Architect che analizza e ottimizza la capacità di un data center VMware Cloud Foundation 9.1">
+        
+</figure>
+  <div class="post-content md-content"><h2 id="introduzione">Introduzione<a hidden class="anchor" aria-hidden="true" href="#introduzione">#</a></h2>
+<p><img alt="Dal data center frammentato a una piattaforma governata" loading="lazy" src="/img/vcf-capacity-transition.png"></p>
+<p>Questo articolo nasce dall’esperienza maturata in molti anni di progettazione, trasformazione e gestione di infrastrutture VMware e, soprattutto, dai percorsi Architect di Broadcom. Questi corsi non si fermano alle funzioni dei prodotti: insegnano a rendere tracciabili le decisioni, a distinguere requisiti e vincoli e a dichiarare rischi e compromessi. Il metodo seguito qui è lo stesso: partire dal problema operativo, misurarlo e solo dopo scegliere la tecnologia.</p>
+<p>Nel 2026 disponibilità e costo dell’hardware sono soltanto una parte del problema. Tempi di consegna incerti, crescita dei workload AI, maggiore densità computazionale e cambiamenti nei modelli di licensing rendono fragile una strategia basata sul semplice aumento del numero di server.</p>
+<p>Quando un cluster VMware raggiunge il 60–70% di utilizzo, pianificare nuovi host è una reazione comprensibile, ma spesso anticipata. Quella percentuale non indica quale risorsa stia limitando il cluster, quanta capacità sia recuperabile, quanto pesino le VM sovradimensionate o quale margine debba restare disponibile per la resilienza. Non distingue neppure tra un limite di compute, memoria, storage, rete o architettura.</p>
+<p>La domanda utile non è quanti server acquistare, ma quanta capacità utilizzabile esista già e quale architettura permetta di sfruttarla senza ridurre resilienza, supportabilità e prestazioni.</p>
+<p>VMware Cloud Foundation 9.1 integra compute, storage, networking, sicurezza e operations in una piattaforma privata comune. Non corregge però, da solo, un disegno inefficiente. La tecnologia amplia le possibilità; il metodo stabilisce quali usare e perché.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1.html">VMware Cloud Foundation 9.1</a> · <a href="https://blogs.vmware.com/cloud-foundation/2026/05/05/announcing-vcf-9-1-modern-private-cloud-built-for-efficiency-and-resilience/">Announcing VCF 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/overview-of-vmware-cloud-foundation-9/what-is-vmware-cloud-foundation-and-vmware-vsphere-foundation/vcf-operations-overview/fleet-management.html">Fleet Management</a></p>
+<h2 id="il-falso-problema-della-percentuale-di-utilizzo">Il falso problema della percentuale di utilizzo<a hidden class="anchor" aria-hidden="true" href="#il-falso-problema-della-percentuale-di-utilizzo">#</a></h2>
+<p><img alt="La percentuale media non identifica il vero limite" loading="lazy" src="/img/vcf-utilization-trap.png"></p>
+<p>Un cluster al 65% non è necessariamente vicino alla saturazione. Un cluster al 40% non è necessariamente sano. Dietro la stessa media possono esserci memoria allocata ma poco utilizzata, vCPU in eccesso, datastore prossimi alla saturazione, latenze storage in crescita, distribuzione irregolare delle VM, vincoli NUMA, snapshot dimenticati o workload non più necessari.</p>
+<p>Il primo errore è confondere la capacità installata con quella utilizzabile. In forma semplificata:</p>
+<p><strong>Capacità utile = capacità fisica − riserva di resilienza − overhead − inefficienze − margine operativo</strong></p>
+<p>La capacità fisica è il dato di targa. La capacità utile è quella assegnabile ai workload mantenendo il comportamento previsto durante manutenzioni, guasti e picchi. È questo valore, non la somma nominale delle risorse, a dover guidare capacity planning e investimenti.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vcf-ops.html">VCF Operations 9.1</a> · <a href="https://blogs.vmware.com/cloud-foundation/2026/05/05/scale-simplify-and-secure-your-private-cloud-operations-with-vcf-9-1/">Scale, Simplify, and Secure Private Cloud Operations with VCF 9.1</a></p>
+<h2 id="misurare-il-limite-reale">Misurare il limite reale<a hidden class="anchor" aria-hidden="true" href="#misurare-il-limite-reale">#</a></h2>
+<p><img alt="Analisi separata di compute, memoria, storage e rete" loading="lazy" src="/img/vcf-four-domains.png"></p>
+<p>Prima di introdurre nuovi host occorre individuare la risorsa che sta realmente esaurendo il proprio margine. In molti ambienti il compute appare saturo, mentre CPU e memoria dispongono ancora di capacità e il limite effettivo è lo storage: spazio netto, latenza, throughput, tempi di rebuild o dipendenza da un array arrivato a fine ciclo.</p>
+<p>Aggiungere server in questo scenario aumenta la capacità computazionale ma lascia invariato il collo di bottiglia. Il risultato è nuovo hardware sottoutilizzato e un problema ancora aperto.</p>
+<p>L’assessment va separato in quattro domini. Sul compute contano utilizzo medio e di picco, CPU Ready, Co-Stop, configurazione NUMA, rapporto vCPU/core e capacità residua dopo la perdita di un host. Sulla memoria vanno osservati working set, memoria attiva e consumata, ballooning, compressione e swapping. Sullo storage servono capacità netta, protezione, latenza, IOPS, throughput, crescita e tempi di ricostruzione. Sulla rete vanno verificati banda, ridondanza, oversubscription, packet loss, retransmission e latenza tra domini o siti.</p>
+<p>Solo dopo questa analisi si può decidere se servano nuovo compute, nuovo storage, una revisione della rete o una migliore distribuzione delle risorse esistenti.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vcf-ops.html">VCF Operations 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vsan.html">vSAN 9.1</a></p>
+<h2 id="recuperare-capacità-attraverso-il-rightsizing">Recuperare capacità attraverso il rightsizing<a hidden class="anchor" aria-hidden="true" href="#recuperare-capacità-attraverso-il-rightsizing">#</a></h2>
+<p><img alt="Rightsizing come processo continuo di governo" loading="lazy" src="/img/vcf-rightsizing.png"></p>
+<p>Il rightsizing non è un taglio indiscriminato di RAM e vCPU. È un processo continuo di misura, correzione e verifica. Una VM sovradimensionata riduce l’efficacia di DRS, complica il posizionamento durante un failover, può creare configurazioni NUMA inefficienti e restringe il numero di host sui quali il workload può essere riavviato.</p>
+<p>Le decisioni devono basarsi su dati storici che comprendano picchi, stagionalità, finestre batch, backup e crescita prevista. Ridurre una VM sulla sola media giornaliera è rischioso quanto lasciarla per anni al doppio della capacità necessaria.</p>
+<p>Un processo solido osserva il comportamento, formula una proposta, coinvolge il referente applicativo, applica la modifica, verifica il risultato e mantiene un rollback praticabile. Il beneficio non è solo economico: una piattaforma più prevedibile è più semplice da proteggere, aggiornare e ampliare.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vcf-ops.html">VCF Operations 9.1</a> · <a href="https://blogs.vmware.com/cloud-foundation/2026/05/05/scale-simplify-and-secure-your-private-cloud-operations-with-vcf-9-1/">Scale, Simplify, and Secure Private Cloud Operations with VCF 9.1</a></p>
+<h2 id="memory-tiering-più-capacità-ma-non-memoria-gratuita">Memory Tiering: più capacità, ma non memoria gratuita<a hidden class="anchor" aria-hidden="true" href="#memory-tiering-più-capacità-ma-non-memoria-gratuita">#</a></h2>
+<p><img alt="DRAM e tier NVMe per estendere la capacità di memoria" loading="lazy" src="/img/vcf-memory-tiering.png"></p>
+<p>Memory Tiering è una funzione di ESX che utilizza dispositivi NVMe locali come livello di memoria secondario rispetto alla DRAM. Le pagine più attive restano nel tier più veloce; quelle meno attive possono essere collocate sul tier NVMe. L’obiettivo è aumentare la capacità effettiva quando la memoria è il vincolo reale e la CPU conserva margine. I dispositivi destinati al tier di memoria devono essere dedicati a questa funzione e non condivisi con datastore VM o con vSAN.</p>
+<p>Non è equivalente allo swapping tradizionale e non sostituisce il rightsizing. Compatibilità delle VM, caratteristiche e endurance dei dispositivi NVMe, working set e sensibilità alla latenza devono essere verificati sul workload reale. Il beneficio va dimostrato attraverso metriche, test e osservazione operativa, non dedotto dalla sola quantità di memoria configurata.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-resource-management/memory-tiering-over-nvme/memory-tiering-considerations-and-best-practices.html">Memory Tiering considerations and best practices</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/using-resource-efficiency-for-memory-tiering.html">Using Memory Tiering for Resource Efficiency</a> · <a href="https://blogs.vmware.com/cloud-foundation/2026/05/19/more-memory-less-effort-configuring-memory-tiering-in-vcf-9-1/">Configuring Memory Tiering in VCF 9.1</a></p>
+<h2 id="riutilizzare-lhardware-assegnandogli-il-ruolo-corretto">Riutilizzare l’hardware, assegnandogli il ruolo corretto<a hidden class="anchor" aria-hidden="true" href="#riutilizzare-lhardware-assegnandogli-il-ruolo-corretto">#</a></h2>
+<p><img alt="Hardware di generazioni diverse assegnato a ruoli coerenti" loading="lazy" src="/img/vcf-capacity-analysis.png"></p>
+<p>Riutilizzare hardware esistente non significa ignorare compatibilità, supporto o ciclo di vita. Significa separare il valore residuo del server dal ruolo che svolgeva in precedenza. Un host non più adatto ai workload più esigenti può restare valido per servizi infrastrutturali, ambienti di test o cluster con un profilo prestazionale prevedibile.</p>
+<p>Anche il Management Domain è critico: non è un deposito naturale per hardware obsoleto. Il riuso è sostenibile solo quando capacità, disponibilità, driver, firmware e supporto restano coerenti con l’intero ciclo di vita previsto. La Broadcom Compatibility Guide e le indicazioni dell’OEM devono precedere la decisione economica.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1.html">VMware Cloud Foundation 9.1</a> · <a href="https://compatibilityguide.broadcom.com/">Broadcom Compatibility Guide</a></p>
+<h2 id="non-forzare-luniformità-tra-generazioni-diverse">Non forzare l’uniformità tra generazioni diverse<a hidden class="anchor" aria-hidden="true" href="#non-forzare-luniformità-tra-generazioni-diverse">#</a></h2>
+<p><img alt="Cluster omogenei e lifecycle separati" loading="lazy" src="/img/vcf-infrastructure-domains.png"></p>
+<p>Server dello stesso produttore ma di generazioni differenti possono richiedere firmware, driver, vendor add-on e impostazioni BIOS diversi. Trattarli come un unico insieme omogeneo aumenta il rischio e rende più complessa la remediation.</p>
+<p>Con il lifecycle basato su immagini, l’obiettivo non è costruire un’immagine universale. È definire immagini coerenti per cluster omogenei e mantenere confini chiari tra gruppi hardware con requisiti differenti. L’eterogeneità non va eliminata per principio; va confinata, documentata e gestita.</p>
+<p>Riferimento Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/lifecycle-management-in-vmware-cloud-foundation.html">Lifecycle Management in VMware Cloud Foundation</a></p>
+<h2 id="scegliere-lo-storage-in-base-al-servizio-non-alla-moda">Scegliere lo storage in base al servizio, non alla moda<a hidden class="anchor" aria-hidden="true" href="#scegliere-lo-storage-in-base-al-servizio-non-alla-moda">#</a></h2>
+<p><img alt="Storage progettato in funzione delle classi di servizio" loading="lazy" src="/img/vcf-storage-service-classes.png"></p>
+<p>Adottare VCF non significa collocare ogni dato sullo stesso tipo di storage. La scelta dipende da prestazioni, protezione, resilienza, modello operativo, competenze, crescita, costo e compatibilità. Storage principale, storage supplementare, repository di backup e destinazioni di replica possono convivere, purché ogni ruolo sia esplicito.</p>
+<p>vSAN ESA è una scelta naturale quando si vuole un’architettura HCI integrata e governata da policy, ma richiede hardware validato, rete adeguata e un calcolo realistico di capacità e resilienza. Una configurazione che si installa correttamente non è automaticamente una configurazione sostenibile per anni.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vsan.html">What’s New in vSAN 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring.html">vSAN documentation</a></p>
+<h2 id="vsan-esa-deduplica-e-compressione-senza-sovrastimare-il-beneficio">vSAN ESA: deduplica e compressione senza sovrastimare il beneficio<a hidden class="anchor" aria-hidden="true" href="#vsan-esa-deduplica-e-compressione-senza-sovrastimare-il-beneficio">#</a></h2>
+<p><img alt="Deduplica e compressione come leve misurabili di efficienza" loading="lazy" src="/img/vcf-vsan-esa-efficiency.png"></p>
+<p>VCF 9.1 rende generalmente disponibile la Global Deduplication per vSAN ESA e introduce un nuovo algoritmo di compressione always-on. La deduplica opera come processo post-processing a livello di cluster; la compressione viene applicata ai nuovi dati e, dopo un upgrade, ai blocchi esistenti quando vengono riletti e riscritti. Il risultato dipende dal tipo di dati, dalle policy e dal comportamento dei workload. Dati già compressi, cifrati o poco ripetitivi non offrono lo stesso rapporto di riduzione di template, desktop virtuali o sistemi operativi simili. Nella release 9.1 la Global Deduplication non è supportata nelle topologie stretched cluster e 2-node.</p>
+<p>Il capacity planning deve partire dalla capacità raw, sottrarre protezione, slack operativo e spazio necessario alle ricostruzioni, quindi applicare un rapporto di riduzione prudenziale basato su misure reali. Deduplica e compressione possono rinviare un’espansione e ridurre il costo per terabyte utile; non devono eliminare il margine di sicurezza.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vsan.html">What’s New in vSAN 9.1</a> · <a href="https://blogs.vmware.com/cloud-foundation/2026/05/07/vsan-compression-and-global-deduplication-in-vcf-9-1/">vSAN Compression and Global Deduplication in VCF 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/vsan-deployment-administration-and-monitoring/administering-vmware-vsan/increasing-space-efficiency-in-a-vsan-cluster/using-deduplication-and-compression-in-vsan-cluster.html">Using Deduplication and Compression in vSAN</a></p>
+<h2 id="progettare-il-cluster-sul-guasto-non-sulla-normalità">Progettare il cluster sul guasto, non sulla normalità<a hidden class="anchor" aria-hidden="true" href="#progettare-il-cluster-sul-guasto-non-sulla-normalità">#</a></h2>
+<p><img alt="Capacità calcolata per manutenzione e scenari di guasto" loading="lazy" src="/img/vcf-resilience-capacity.png"></p>
+<p>Un cluster non va dimensionato soltanto per il funzionamento ordinario. Deve mantenere il servizio durante la perdita di un host, una manutenzione, un aggiornamento, la ricostruzione dello storage o la perdita di un fault domain prevista dal progetto.</p>
+<p>La capacità totale non può quindi essere allocata per intero. Vanno sottratti il margine N+1 o superiore, l’overhead dell’hypervisor e dei servizi di gestione, lo spazio necessario alle manutenzioni, la crescita prevista e la capacità richiesta dalle policy di protezione.</p>
+<p>Nei cluster stretched, il witness partecipa al quorum ma non aggiunge capacità eseguibile ai workload. La domanda corretta non è quante VM entrino nel cluster in condizioni normali, ma quante possano restare operative nello scenario di guasto dichiarato dall’architettura.</p>
+<p>Riferimento Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/administering-vmware-vsan/setting-up-a-stretched-cluster.html">VMware vSAN Stretched Cluster</a></p>
+<h2 id="consolidare-senza-creare-un-nuovo-monolite">Consolidare senza creare un nuovo monolite<a hidden class="anchor" aria-hidden="true" href="#consolidare-senza-creare-un-nuovo-monolite">#</a></h2>
+<p><img alt="Confini di cluster coerenti con hardware e requisiti" loading="lazy" src="/img/vcf-cluster-boundaries.png">
+/
+Ridurre il numero di cluster limita la frammentazione, aumenta la libertà di posizionamento e semplifica il lifecycle. Consolidare tutto in un unico cluster, però, può creare un monolite difficile da governare.</p>
+<p>I confini devono riflettere generazione hardware, sicurezza, licensing applicativo, criticità, profilo prestazionale, finestre di manutenzione, localizzazione e requisiti di disponibilità. Il cluster è sia un’unità tecnica sia un confine operativo: deve essere abbastanza grande da usare bene le risorse e abbastanza coerente da poter essere gestito come un solo oggetto.</p>
+<p>Riferimento Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/design.html">VMware Cloud Foundation 9.1 Design</a></p>
+<h2 id="il-capacity-planning-come-funzione-finops">Il capacity planning come funzione FinOps<a hidden class="anchor" aria-hidden="true" href="#il-capacity-planning-come-funzione-finops">#</a></h2>
+<p><img alt="Capacity management e costo come parte della stessa decisione" loading="lazy" src="/img/vcf-operations-finops.png"></p>
+<p>Ogni core inutilizzato, ogni terabyte non governato e ogni VM sovradimensionata produce un effetto economico. Capacity e cost management devono quindi essere letti insieme, includendo costo della capacità inutilizzata, resilienza, licensing, rinnovo hardware e debito tecnico.</p>
+<p>Applicare FinOps al private cloud non significa necessariamente fatturare ogni VM a un centro di costo. Significa rendere visibile il legame tra scelta tecnica e conseguenza economica. Una VM sovradimensionata può anticipare un investimento; un cluster frammentato può moltiplicare riserve che non possono essere condivise.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vcf-ops.html">VCF Operations 9.1</a> · <a href="https://blogs.vmware.com/cloud-foundation/2026/05/05/scale-simplify-and-secure-your-private-cloud-operations-with-vcf-9-1/">Scale, Simplify, and Secure Private Cloud Operations with VCF 9.1</a></p>
+<h2 id="vcf-operations-come-sistema-decisionale">VCF Operations come sistema decisionale<a hidden class="anchor" aria-hidden="true" href="#vcf-operations-come-sistema-decisionale">#</a></h2>
+<p><img alt="Operations come ciclo continuo di misura e correzione" loading="lazy" src="/img/vcf-operations-decision-cycle.png"></p>
+<p>Un sistema di monitoraggio tradizionale segnala ciò che non funziona. Una piattaforma di operations matura deve indicare anche ciò che sta per esaurirsi, dove esiste capacità recuperabile, quali VM sono sovradimensionate, quali host limitano il lifecycle e quale investimento può essere rinviato.</p>
+<p>Fleet Management centralizza la gestione delle istanze e dei componenti registrati nella fleet. Deployment, validazione iniziale e lifecycle appartengono a workflow distinti ma coordinati. Il valore nasce quando le dashboard alimentano un processo: raccolta dei dati, baseline, analisi, azioni correttive, verifica e aggiornamento del piano di capacità.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/overview-of-vmware-cloud-foundation-9/what-is-vmware-cloud-foundation-and-vmware-vsphere-foundation/vcf-operations-overview/fleet-management.html">Fleet Management</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1.html">VMware Cloud Foundation 9.1</a></p>
+<h2 id="acquistare-soltanto-dopo-aver-definito-larchitettura-target">Acquistare soltanto dopo aver definito l’architettura target<a hidden class="anchor" aria-hidden="true" href="#acquistare-soltanto-dopo-aver-definito-larchitettura-target">#</a></h2>
+<p><img alt="Framework architetturale prima della distinta base" loading="lazy" src="/img/vcf-architecture-framework.png"></p>
+<p>Prima di ordinare nuovi server è opportuno aver definito Management e Workload Domain, numero e dimensione dei cluster, hardware riutilizzabile, lifecycle, storage, rete, fault domain, capacità N+1 o N+2, crescita, rapporto core/memoria, uso eventuale del Memory Tiering e ipotesi prudenti sulla data reduction di vSAN ESA.</p>
+<p>Solo dopo ha senso costruire la distinta base. Questo evita sia l’acquisto di server potenti ma inutilizzati perché il limite è altrove, sia l’acquisto di nodi sbilanciati rispetto al carico e al modello storage. Non serve comprare più velocemente; serve comprare con dati migliori e all’interno di un disegno già definito.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/design.html">VMware Cloud Foundation 9.1 Design</a> · <a href="https://compatibilityguide.broadcom.com/">Broadcom Compatibility Guide</a></p>
+<h2 id="un-possibile-modello-evolutivo">Un possibile modello evolutivo<a hidden class="anchor" aria-hidden="true" href="#un-possibile-modello-evolutivo">#</a></h2>
+<p><img alt="Percorso progressivo dall’assessment alle operations" loading="lazy" src="/img/vcf-evolution-model.png"></p>
+<p>Un percorso pragmatico può articolarsi in cinque fasi. L’assessment inventaria componenti, verifica compatibilità, misura capacità reale, identifica il collo di bottiglia e avvia il rightsizing. Il disegno definisce domini, cluster, storage, rete, resilienza e lifecycle. Il riuso controllato assegna l’hardware ai ruoli compatibili e mantiene cluster omogenei. L’investimento mirato introduce solo ciò che serve a rimuovere un limite misurato. Le operations continue aggiornano capacity plan, soglie, lifecycle e modelli di costo.</p>
+<p>Queste fasi non sono una sequenza rigida: alcune attività si sovrappongono e i dati raccolti durante le operations possono richiedere la revisione delle decisioni iniziali. Il punto fermo è la tracciabilità delle scelte.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1.html">VMware Cloud Foundation 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-0/lifecycle-management-in-vmware-cloud-foundation.html">Lifecycle Management</a></p>
+<h2 id="le-decisioni-che-fanno-davvero-risparmiare-hardware">Le decisioni che fanno davvero risparmiare hardware<a hidden class="anchor" aria-hidden="true" href="#le-decisioni-che-fanno-davvero-risparmiare-hardware">#</a></h2>
+<p><img alt="Dalla capacità nascosta a una piattaforma governata" loading="lazy" src="/img/vcf-data-efficiency.png"></p>
+<p>Il risparmio raramente dipende da una singola funzione. Deriva dalla combinazione di decisioni coerenti: distinguere capacità fisica e capacità utile, dimensionare sul guasto, identificare il collo di bottiglia, applicare rightsizing, consolidare dove opportuno, separare lifecycle diversi, usare Memory Tiering e data reduction soltanto quando i dati ne dimostrano il beneficio.</p>
+<p>L’assessment può confermare la necessità di nuovi server, spostare l’investimento verso storage o rete oppure rinviare l’acquisto. Sono tutti esiti validi. L’obiettivo non è evitare nuovo hardware, ma evitare di comprarlo per compensare un problema non ancora compreso.</p>
+<p>Riferimenti Broadcom: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vcf-ops.html">VCF Operations 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vsan.html">vSAN 9.1</a></p>
+<h2 id="conclusioni">Conclusioni<a hidden class="anchor" aria-hidden="true" href="#conclusioni">#</a></h2>
+<p><img alt="Una piattaforma più efficiente, resiliente e prevedibile" loading="lazy" src="/img/vcf-governed-platform.png"></p>
+<p>VMware Cloud Foundation 9.1 può essere il punto di partenza per un private cloud più integrato e governabile, ma il beneficio principale non deriva dall’installazione della piattaforma. Deriva da un diverso modo di prendere le decisioni infrastrutturali.</p>
+<p>L’hardware esistente non va mantenuto indiscriminatamente né sostituito per abitudine. Va assegnato al ruolo nel quale può continuare a produrre valore. Il nuovo hardware deve rimuovere un limite misurato, non un’ipotesi. In un private cloud maturo, l’ottimizzazione non è una misura temporanea in attesa del prossimo acquisto: è parte dell’architettura.</p>
+<p>Riferimenti finali: <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1.html">VMware Cloud Foundation 9.1</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-1/vsphere-resource-management/memory-tiering-over-nvme/memory-tiering-considerations-and-best-practices.html">Memory Tiering best practices</a> · <a href="https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-service-administration-and-development/9-1/whats-new-vsan.html">vSAN 9.1</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/vmware-cloud-foundation/">VMware Cloud Foundation</a></li>
+      <li><a href="http://localhost:1313/tags/private-cloud/">Private Cloud</a></li>
+      <li><a href="http://localhost:1313/tags/hybrid-cloud/">Hybrid Cloud</a></li>
+      <li><a href="http://localhost:1313/tags/capacity-planning/">Capacity Planning</a></li>
+      <li><a href="http://localhost:1313/tags/vsan/">VSAN</a></li>
+      <li><a href="http://localhost:1313/tags/finops/">FinOps</a></li>
+      <li><a href="http://localhost:1313/tags/infrastructure/">Infrastructure</a></li>
+      <li><a href="http://localhost:1313/tags/enterprise-architecture/">Enterprise Architecture</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/">
+    <span class="title">Successivo »</span>
+    <span>AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on x"
+            href="https://x.com/intent/tweet/?text=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f&amp;hashtags=VMwareCloudFoundation%2cPrivateCloud%2cHybridCloud%2cCapacityPlanning%2cvSAN%2cFinOps%2cInfrastructure%2cEnterpriseArchitecture">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f&amp;title=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware&amp;summary=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f&title=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on whatsapp"
+            href="https://api.whatsapp.com/send?text=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on telegram"
+            href="https://telegram.me/share/url?text=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=La%20capacit%c3%a0%20nascosta%20del%20data%20center%3a%20progettare%20VMware%20Cloud%20Foundation%209.1%20prima%20di%20acquistare%20nuovo%20hardware&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fcapacita-nascosta-vcf-9-1%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">systools.it</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copia';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copiato!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copia';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

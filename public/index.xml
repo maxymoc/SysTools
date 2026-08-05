@@ -6,8 +6,15 @@
     <description>Recent content on systools.it</description>
     <generator>Hugo</generator>
     <language>it</language>
-    <lastBuildDate>Thu, 25 Jun 2026 14:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 17:40:00 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware</title>
+      <link>http://localhost:1313/posts/capacita-nascosta-vcf-9-1/</link>
+      <pubDate>Tue, 04 Aug 2026 17:40:00 +0200</pubDate>
+      <guid>http://localhost:1313/posts/capacita-nascosta-vcf-9-1/</guid>
+      <description>Un cluster VMware al 65% di utilizzo non è necessariamente vicino alla saturazione. Come distinguere la capacità installata da quella utilizzabile prima di acquistare nuovo hardware, con VMware Cloud Foundation 9.1.</description>
+    </item>
     <item>
       <title>AD CS AutoEnrollment e CryptoAPI: caso reale di blocco causato da middleware crittografico</title>
       <link>http://localhost:1313/posts/ad-cs-autoenrollment-bit4id/</link>
