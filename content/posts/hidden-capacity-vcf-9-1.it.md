@@ -1,7 +1,7 @@
 ---
 title: "La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware"
 date: 2026-08-04T17:40:00+02:00
-draft: true
+draft: false
 description: "Un cluster VMware al 65% di utilizzo non è necessariamente vicino alla saturazione. Come distinguere la capacità installata da quella utilizzabile prima di acquistare nuovo hardware, con VMware Cloud Foundation 9.1."
 translationKey: "capacita-nascosta-vcf-9-1"
 tags:
