@@ -6,8 +6,15 @@
     <description>Recent content in VMware Cloud Foundation on systools.it</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 04 Aug 2026 17:40:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 10:15:00 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/en/tags/vmware-cloud-foundation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DOOM on VCF 9.1: a nerdy workload for Rightsizing</title>
+      <link>http://localhost:1313/en/posts/doom-on-vcf-9-1-rightsizing/</link>
+      <pubDate>Wed, 21 Oct 2026 10:15:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/posts/doom-on-vcf-9-1-rightsizing/</guid>
+      <description>Alpine Linux, DOSBox and DOOM in a VCF 9.1 Workload Domain: a minimal-footprint experiment with Rightsizing and What-If Analysis in VCF Operations.</description>
+    </item>
     <item>
       <title>The hidden capacity of the data center: designing VMware Cloud Foundation 9.1 before buying new hardware</title>
       <link>http://localhost:1313/en/posts/hidden-capacity-vcf-9-1/</link>

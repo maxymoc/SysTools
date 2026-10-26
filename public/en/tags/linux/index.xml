@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Linux on systools.it</title>
+    <link>http://localhost:1313/en/tags/linux/</link>
+    <description>Recent content in Linux on systools.it</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 21 Oct 2026 10:15:00 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/en/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DOOM on VCF 9.1: a nerdy workload for Rightsizing</title>
+      <link>http://localhost:1313/en/posts/doom-on-vcf-9-1-rightsizing/</link>
+      <pubDate>Wed, 21 Oct 2026 10:15:00 +0200</pubDate>
+      <guid>http://localhost:1313/en/posts/doom-on-vcf-9-1-rightsizing/</guid>
+      <description>Alpine Linux, DOSBox and DOOM in a VCF 9.1 Workload Domain: a minimal-footprint experiment with Rightsizing and What-If Analysis in VCF Operations.</description>
+    </item>
+  </channel>
+</rss>

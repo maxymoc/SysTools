@@ -6,8 +6,15 @@
     <description>Recent content in Capacity Planning on systools.it</description>
     <generator>Hugo</generator>
     <language>it</language>
-    <lastBuildDate>Tue, 04 Aug 2026 17:40:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 10:15:00 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/capacity-planning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DOOM su VCF 9.1: un workload nerd per il Rightsizing</title>
+      <link>http://localhost:1313/posts/doom-su-vcf-9-1-rightsizing/</link>
+      <pubDate>Wed, 21 Oct 2026 10:15:00 +0200</pubDate>
+      <guid>http://localhost:1313/posts/doom-su-vcf-9-1-rightsizing/</guid>
+      <description>Alpine Linux, DOSBox e DOOM in un Workload Domain VCF 9.1: un esperimento minimalista per esplorare Rightsizing e What-If in VCF Operations.</description>
+    </item>
     <item>
       <title>La capacità nascosta del data center: progettare VMware Cloud Foundation 9.1 prima di acquistare nuovo hardware</title>
       <link>http://localhost:1313/posts/capacita-nascosta-vcf-9-1/</link>
