@@ -1,7 +1,7 @@
 ---
 title: "DOOM on VCF 9.1: a nerdy workload for Rightsizing"
 date: 2026-10-21T10:15:00+02:00
-draft: true
+draft: false
 description: "Alpine Linux, DOSBox and DOOM in a VCF 9.1 Workload Domain: a minimal-footprint experiment with Rightsizing and What-If Analysis in VCF Operations."
 translationKey: "vcf-9-1-doom-rightsizing"
 tags:
