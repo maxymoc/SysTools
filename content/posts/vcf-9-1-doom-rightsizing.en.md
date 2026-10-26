@@ -76,6 +76,8 @@ DOOM.EXE
 
 In my lab the game directory was `C:\GAMES\DOOMS`, and the executable I used was `DOOMS.EXE`; the standard shareware archive normally uses `DOOM.EXE`.
 
+![VCF Operations: Running DOOM!](/img/vcf-9-1-reclaim-doom.png)
+
 DOOM has a built-in *attract mode*: when left at its title screen, it cycles through recorded gameplay demos without user input. It provides a small, real, not perfectly flat but **repeatable and observable** workload.
 
 ## From telemetry to decisions: Reclaim, Rightsize and What-If

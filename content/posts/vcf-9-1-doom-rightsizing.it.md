@@ -76,6 +76,8 @@ DOOM.EXE
 
 Nel mio ambiente il percorso di gioco era `C:\GAMES\DOOMS` e l'eseguibile utilizzato era `DOOMS.EXE`; nell'archivio shareware standard è normalmente `DOOM.EXE`.
 
+![VCF Operations: Running DOOM!](/img/vcf-9-1-reclaim-doom.png)
+
 DOOM offre una modalità dimostrativa automatica (*attract mode*): lasciandolo alla schermata iniziale, riproduce ciclicamente le demo senza richiedere interazione. Un carico reale, leggero, non perfettamente costante ma **ripetibile e osservabile**.
 
 ## Dalla telemetria alle decisioni: Reclaim, Rightsize e What-If
