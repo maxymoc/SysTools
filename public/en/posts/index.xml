@@ -6,8 +6,15 @@
     <description>Recent content in Posts on systools.it</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 21 Oct 2026 10:15:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 00:00:00 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VCF 9, Holodeck, and 128 Cores: Why CPU Sockets Matter</title>
+      <link>http://localhost:1313/en/posts/vcf-9-holodeck-128-core-cpu-topology/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/vcf-9-holodeck-128-core-cpu-topology/</guid>
+      <description>How I adjusted CPU topology across seven nested ESX hosts in Holodeck to stay within my 128-core personal-use VCF entitlement obtained through VCP-VCF Architect and VMUG Advantage.</description>
+    </item>
     <item>
       <title>DOOM on VCF 9.1: a nerdy workload for Rightsizing</title>
       <link>http://localhost:1313/en/posts/doom-on-vcf-9-1-rightsizing/</link>

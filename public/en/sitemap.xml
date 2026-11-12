@@ -2,6 +2,175 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/en/categories/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/categories/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/holodeck/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/holodeck/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/holodeck/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/homelab/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/homelab/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/homelab/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/licensing/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/licensing/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/licensing/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/nested-esx/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/nested-esx/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/nested-esx/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/posts/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/posts/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/vcf-9/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/vcf-9/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/vcf-9/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/posts/vcf-9-holodeck-128-core-cpu-topology/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/posts/vcf-9-holodeck-128-core-topologia-cpu/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/posts/vcf-9-holodeck-128-core-cpu-topology/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/vmug/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/vmug/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/vmug/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/categories/vmware/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/categories/vmware/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/categories/vmware/"
+                />
+  </url><url>
+    <loc>http://localhost:1313/en/tags/vmware/</loc>
+    <lastmod>2026-11-12T00:00:00+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="it"
+                href="http://localhost:1313/tags/vmware/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://localhost:1313/en/tags/vmware/"
+                />
+  </url><url>
     <loc>http://localhost:1313/en/tags/capacity-planning/</loc>
     <lastmod>2026-10-21T10:15:00+02:00</lastmod>
     <xhtml:link
@@ -41,19 +210,6 @@
                 href="http://localhost:1313/en/tags/dosbox/"
                 />
   </url><url>
-    <loc>http://localhost:1313/en/tags/holodeck/</loc>
-    <lastmod>2026-10-21T10:15:00+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="it"
-                href="http://localhost:1313/tags/holodeck/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/tags/holodeck/"
-                />
-  </url><url>
     <loc>http://localhost:1313/en/tags/linux/</loc>
     <lastmod>2026-10-21T10:15:00+02:00</lastmod>
     <xhtml:link
@@ -65,19 +221,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://localhost:1313/en/tags/linux/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/en/posts/</loc>
-    <lastmod>2026-10-21T10:15:00+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="it"
-                href="http://localhost:1313/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/posts/"
                 />
   </url><url>
     <loc>http://localhost:1313/en/tags/reclaim/</loc>
@@ -104,32 +247,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://localhost:1313/en/tags/rightsizing/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/en/</loc>
-    <lastmod>2026-10-21T10:15:00+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="it"
-                href="http://localhost:1313/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/en/tags/</loc>
-    <lastmod>2026-10-21T10:15:00+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="it"
-                href="http://localhost:1313/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/tags/"
                 />
   </url><url>
     <loc>http://localhost:1313/en/tags/vcf-operations/</loc>
@@ -460,18 +577,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://localhost:1313/en/about/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/en/categories/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="it"
-                href="http://localhost:1313/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/categories/"
                 />
   </url>
 </urlset>

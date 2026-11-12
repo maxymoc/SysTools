@@ -6,8 +6,57 @@
     <description>Recent content in Tags on systools.it</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 21 Oct 2026 10:15:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 00:00:00 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Holodeck</title>
+      <link>http://localhost:1313/en/tags/holodeck/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/holodeck/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Homelab</title>
+      <link>http://localhost:1313/en/tags/homelab/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/homelab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Licensing</title>
+      <link>http://localhost:1313/en/tags/licensing/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/licensing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Nested ESX</title>
+      <link>http://localhost:1313/en/tags/nested-esx/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/nested-esx/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VCF 9</title>
+      <link>http://localhost:1313/en/tags/vcf-9/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/vcf-9/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VMUG</title>
+      <link>http://localhost:1313/en/tags/vmug/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/vmug/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VMware</title>
+      <link>http://localhost:1313/en/tags/vmware/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/tags/vmware/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Capacity Planning</title>
       <link>http://localhost:1313/en/tags/capacity-planning/</link>
@@ -20,13 +69,6 @@
       <link>http://localhost:1313/en/tags/dosbox/</link>
       <pubDate>Wed, 21 Oct 2026 10:15:00 +0200</pubDate>
       <guid>http://localhost:1313/en/tags/dosbox/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Holodeck</title>
-      <link>http://localhost:1313/en/tags/holodeck/</link>
-      <pubDate>Wed, 21 Oct 2026 10:15:00 +0200</pubDate>
-      <guid>http://localhost:1313/en/tags/holodeck/</guid>
       <description></description>
     </item>
     <item>

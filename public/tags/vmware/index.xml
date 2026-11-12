@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>VMware on systools.it</title>
+    <link>http://localhost:1313/tags/vmware/</link>
+    <description>Recent content in VMware on systools.it</description>
+    <generator>Hugo</generator>
+    <language>it</language>
+    <lastBuildDate>Thu, 12 Nov 2026 00:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VCF 9, Holodeck e 128 core: il socket fa la differenza</title>
+      <link>http://localhost:1313/posts/vcf-9-holodeck-128-core-topologia-cpu/</link>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/vcf-9-holodeck-128-core-topologia-cpu/</guid>
+      <description>Come ho riconfigurato la CPU topology di sette host ESX nested in Holodeck per utilizzare i 128 core della licenza personale VCF ottenuta tramite VCP-VCF Architect e VMUG Advantage.</description>
+    </item>
+  </channel>
+</rss>
