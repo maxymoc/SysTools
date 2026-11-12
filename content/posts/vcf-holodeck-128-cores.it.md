@@ -1,7 +1,7 @@
 ---
 title: "VCF 9 Holodeck LAB: come ho sfruttato al massimo 128 core per un laboratorio Full Stack"
 date: 2026-11-12T00:00:00+01:00
-draft: true
+draft: false
 description: "Come ho riconfigurato la CPU topology di sette host ESX nested in Holodeck per utilizzare i 128 core della licenza personale VCF ottenuta tramite VCP-VCF Architect e VMUG Advantage."
 slug: "vcf-9-holodeck-128-core-topologia-cpu"
 translationKey: "vcf-9-holodeck-128-core-cpu-topology"
